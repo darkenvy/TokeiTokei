@@ -1,0 +1,57 @@
+{
+    "author": "RenoMcKenzie.com",
+    "dependencies": {},
+    "keywords": [],
+    "name": "wanikani",
+    "pebble": {
+        "capabilities": [
+            "configurable"
+        ],
+        "displayName": "Tokei Tokei - WaniKani",
+        "enableMultiJS": true,
+        "messageKeys": {
+            "KEY_CHARACTER": 0,
+            "KEY_KANA": 1,
+            "KEY_MEANING": 2,
+            "KEY_REV": 4,
+            "KEY_TYPE": 3
+        },
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/tiny_icon.png",
+                    "menuIcon": true,
+                    "name": "IMAGE_TINY_ICON",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "compatibility": "2.7",
+                    "file": "fonts/perfect-dos-vga.ttf",
+                    "name": "FONT_PERFECT_DOS_48",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "compatibility": "2.7",
+                    "file": "fonts/perfect-dos-vga.ttf",
+                    "name": "FONT_PERFECT_DOS_14",
+                    "targetPlatforms": null,
+                    "type": "font"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "8e0ce2c4-03dd-4342-ba17-5dc406086d28",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "3.5.0"
+}

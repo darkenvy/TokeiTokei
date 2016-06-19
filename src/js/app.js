@@ -1,6 +1,5 @@
 // Get setPebble settings
-// var setPebbleURL = 'http://x.SetPebble.com/api/ZTMW/' + Pebble.getAccountToken();
-var setPebbleURL = 'http://x.SetPebble.com/api/ZTMW/' + "ea714635792207e632b945ef5f591259";
+var setPebbleURL = 'http://x.SetPebble.com/api/ZTMW/' + Pebble.getAccountToken();
 var myAPIKey = "0";
 var revAvailable = 0; // Declare it here so it can be accessed by the second xhrRequest scope
 
@@ -151,32 +150,28 @@ function informBlankAPI(){
 // Listen for when the watchface is opened
 Pebble.addEventListener('ready', function(e) {
   console.log("PebbleKit JS ready!");
-//   myAPIKey = localStorage.getItem("apiKey"); //var myAPIKey = '0c5220d56668a1114b7408bcc602b355';
   
-  // If API key from memory is too short, then grab it from setPebble
-  if (myAPIKey.length < 10) {
-    xhrRequest(setPebbleURL, 'GET', function(responseText) {
-      myAPIKey = JSON.parse(responseText)[1];// responseText contains a JSON object with info 
-      console.log("Grabbed API Key from SetPebble: " + myAPIKey);
-      
-      // Save API key to localStorage
-      if(myAPIKey.length > 4) {
-        
-        // Check to see if the API key changed.
-        if (localStorage.getItem("apiKey") != myAPIKey) {
-          localStorage.setItem("apiKey", myAPIKey);
-          console.log('Saved to settings: ' + localStorage.getItem("apiKey"));
-        } else { console.log('API key is still the same as in memory. Did not re-write'); }
-        
-      } else { 
-        console.log("apiKey from Settings page was Empty. Did not set. Using from memory");
-        myAPIKey = localStorage.getItem("apiKey");
-      }
-      console.log("running getData now()");
-      getData();
-      
-    });
-  }
+  // Always grab from setPebble, every time.
+  xhrRequest(setPebbleURL, 'GET', function(responseText) {
+    myAPIKey = JSON.parse(responseText)[1];// responseText contains a JSON object with info 
+    console.log("Grabbed API Key from SetPebble: " + myAPIKey);
+
+    // Save API key to localStorage, If greater than length 4 (default is "0")
+    if(myAPIKey.length > 4) {
+      // Check to see if the API key changed.
+      if (localStorage.getItem("apiKey") != myAPIKey) {
+        localStorage.setItem("apiKey", myAPIKey);
+        console.log('Saved to settings: ' + localStorage.getItem("apiKey"));
+      } else { console.log('API key is still the same as in memory. Did not re-write'); }
+    } else { 
+      console.log("apiKey from Settings page was Empty. Did not set. Using from memory");
+      myAPIKey = localStorage.getItem("apiKey");
+    }
+
+    console.log("running getData now()");
+    getData();
+
+  });
   
   // If the API Key is still not set, inform the user, else the watch is ready
   if(myAPIKey === null || myAPIKey === "0") { console.log("myAPIKey===null, informBlankAPI()"); informBlankAPI(); } 
@@ -186,7 +181,7 @@ Pebble.addEventListener('ready', function(e) {
   // Listen for when an AppMessage is received
   // This event listener is nested here so the API key has a chance to get set
   Pebble.addEventListener('appmessage', function(e) {
-    console.log("running appmessage event listener")
+    console.log("running appmessage event listener");
     getData();
   });
   
